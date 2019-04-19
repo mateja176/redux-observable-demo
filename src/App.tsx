@@ -5,6 +5,7 @@ import { Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { State, selectName } from './store';
 import { Name, getName, setName, NameActionCreator } from './store/slices/name';
+import './App.css';
 
 const setName$ = new Subject<Name>();
 
@@ -50,7 +51,7 @@ class App extends Component<AppProps, AppState> {
     } = this;
 
     return (
-      <div>
+      <div className="App">
         <Hello name={name} />
         <input onChange={({ target: { value } }) => setName$.next(value)} />
       </div>
