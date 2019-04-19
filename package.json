@@ -17,6 +17,7 @@
     "redux-starter-kit": "^0.4.3",
     "redux-utils": "github:mytee306/redux-utils",
     "rxjs": "^6.4.0",
+    "typesafe-actions": "^4.0.0",
     "typescript": "3.4.4"
   },
   "scripts": {
