@@ -1,7 +1,7 @@
-import React, { useEffect, FC } from 'react';
+import React, { Component } from 'react';
 import Hello from './Hello';
 import { connect } from 'react-redux';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { State, selectName } from './store';
 import { Name, getName, setName, NameActionCreator } from './store/slices/name';
@@ -14,8 +14,20 @@ export interface AppProps {
   setName: NameActionCreator;
 }
 
-const App: FC<AppProps> = ({ name, setName, getName }) => {
-  useEffect(() => {
+export interface AppState {
+  subscription: Subscription | { unsubscribe: () => void };
+}
+
+class App extends Component<AppProps, AppState> {
+  state = {
+    subscription: { unsubscribe: () => {} },
+  };
+
+  componentDidMount() {
+    const {
+      props: { getName, setName },
+    } = this;
+
     getName();
 
     const subscription = setName$
@@ -25,16 +37,26 @@ const App: FC<AppProps> = ({ name, setName, getName }) => {
       )
       .subscribe(name => setName(name));
 
-    return () => subscription.unsubscribe();
-  });
+    this.setState({ subscription });
+  }
 
-  return (
-    <div>
-      <Hello name={name} />
-      <input onChange={({ target: { value } }) => setName$.next(value)} />
-    </div>
-  );
-};
+  componentWillUnmount() {
+    this.state.subscription.unsubscribe();
+  }
+
+  render() {
+    const {
+      props: { name },
+    } = this;
+
+    return (
+      <div>
+        <Hello name={name} />
+        <input onChange={({ target: { value } }) => setName$.next(value)} />
+      </div>
+    );
+  }
+}
 
 export default connect(
   (state: State) => ({ name: selectName(state) }),
