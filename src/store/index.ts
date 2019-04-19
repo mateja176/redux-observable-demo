@@ -12,7 +12,7 @@ import {
   setName,
 } from './slices/name';
 import { Observable } from 'rxjs';
-import { tap, map, delay, switchMap, mergeMap } from 'rxjs/operators';
+import { map, switchMap, mergeMap } from 'rxjs/operators';
 import {
   StateObservable,
   ofType,
