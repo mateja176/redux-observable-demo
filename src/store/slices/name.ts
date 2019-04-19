@@ -21,12 +21,16 @@ export type NameActionCreator = SliceActionCreator<NamePayload>;
 
 export const {
   reducer: name,
-  actions: { getName, setName },
+  actions: { setName },
 } = createSlice<Name, NameAction>({
   slice: nameSlice,
   initialState,
   reducers: {
-    getName: _ => _,
     setName: (_, { payload }) => payload,
   },
+});
+
+export const getName: NameActionCreator = () => ({
+  type: nameSlice.concat('/').concat('getName'),
+  payload: undefined,
 });
