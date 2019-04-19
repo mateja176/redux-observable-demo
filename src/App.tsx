@@ -15,17 +15,17 @@ export interface AppProps {
 }
 
 const App: FC<AppProps> = ({ name, setName, getName }) => {
-  const subscription = useEffect(() => {
+  useEffect(() => {
     getName();
 
-    setName$
+    const subscription = setName$
       .pipe(
         debounceTime(500),
         distinctUntilChanged(),
       )
       .subscribe(name => setName(name));
 
-    return () => subscription;
+    return () => subscription.unsubscribe();
   });
 
   return (
