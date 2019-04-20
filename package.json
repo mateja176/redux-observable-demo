@@ -11,6 +11,7 @@
     "react-dom": "^16.8.6",
     "react-redux": "^7.0.2",
     "react-scripts": "2.1.8",
+    "recompose": "^0.30.0",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
     "redux-observable": "^1.1.0",
@@ -37,6 +38,7 @@
   ],
   "devDependencies": {
     "@types/react-redux": "^7.0.7",
+    "@types/recompose": "^0.30.6",
     "@types/redux-logger": "^3.0.7"
   }
 }
